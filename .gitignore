@@ -1,0 +1,19 @@
+# Environment variables (contains secrets — never commit these)
+.env
+.env.*
+!.env
+
+# Python
+myenv/
+__pycache__/
+*.pyc
+
+# Node / frontend
+node_modules/
+dist/
+.vite/
+
+# Editor / OS
+.vscode/
+.DS_Store
+Thumbs.db
