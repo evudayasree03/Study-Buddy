@@ -42,16 +42,20 @@ MODEL = "openai/gpt-oss-120b"
 
 app = FastAPI(title="Study Buddy API (Groq)")
 
+
+# Local dev origins are always allowed. Add your deployed frontend's URL via
+# the FRONTEND_URL env var once you know it (e.g. https://study-buddy.vercel.app).
+_allowed_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+_frontend_url = os.getenv("FRONTEND_URL")
+if _frontend_url:
+    _allowed_origins.append(_frontend_url.rstrip("/"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=_allowed_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # ---------------------------------------------------------------------------
 # Request / response models (identical to the Claude version — the frontend
